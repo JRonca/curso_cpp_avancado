@@ -1,0 +1,37 @@
+### 1 ###
+sudo chown -R $USER:$USER /var/www/html/
+
+### 2 ###
+cat /etc/apache2/mods-available/cgi.load
+deve estar com a linha descomentada:
+LoadModule cgi_module /usr/lib/apache2/modules/mod_cgi.so
+
+### 3 ###
+sudo vim /etc/apache2/mods-enabled/mime.conf
+descomentar essa linha:
+#AddHandler cgi-script .cgi
+E adicione .cpp ao final, dessa forma:
+AddHandler cgi-script .cgi .cpp
+
+### 4 ###
+sudo a2enmod cgi
+e apos isso:
+sudo systemctl restart apache2
+
+### 5 ###
+crie seu arquivo .cpp
+
+### 6 ###
+compile:
+g++ start.cpp -o index.cpp
+
+### 7 ###
+sudo mv index.cpp /usr/lib/cgi-bin/
+
+### 8 ###
+sudo mv /usr/lib/cgi-bin/index.cpp /usr/lib/cgi-bin/index.html
+
+### 9 ###
+acesse:
+http://localhost/cgi-bin/
+
